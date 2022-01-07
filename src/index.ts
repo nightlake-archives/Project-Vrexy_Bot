@@ -9,25 +9,29 @@ const bot: VrexyClient = new VrexyClient();
 const eventFiles = readdirSync(`${bot.src}/events`).filter((file: string) => file.endsWith('.js'));
 const slashFiles = readdirSync(`${bot.src}/interactions/commands`).filter((file: string) => file.endsWith(".js"));
 const commponentFiles = readdirSync(`${bot.src}/interactions/components`).filter(file => file.endsWith('.js'));
-const devCmdFiles = readdirSync(`${bot.src}/commands`)
+const devCmdFiles = readdirSync(`${bot.src}/commands`).filter((file: string) => file.endsWith(".js"))
 
 for (const eventFile of eventFiles) {
-    const event = require(`${bot.src}/events/${eventFile.replace('.js', '')}`);
-    if (event.once) {
-        bot.once(event.name, (...args: Array<any>) => event.execute(...args));
-    } else {
-        bot.on(event.name, (...args: Array<any>) => event.execute(...args));
-    }
+    import(`${bot.src}/events/${eventFile.replace('.js', '')}`).then((event: any) => {
+        if (event.once) {
+            bot.once(event.name, (...args: Array<any>) => event.execute(...args));
+        } else {
+            bot.on(event.name, (...args: Array<any>) => event.execute(...args));
+        }
+    })
+    
 }
 
 for (const slashFile of slashFiles) {
-    const command = require(`${bot.src}/interactions/commands/${slashFile}`)
-    bot.slashInteractions.set(command.name, command)
+    import(`${bot.src}/interactions/commands/${slashFile}`).then((command: any) => {
+        bot.slashInteractions.set(command.name, command)
+    })
 }
 
 for (const commponentFile of commponentFiles) {
-    const component = require(`${bot.src}/interactions/components/${commponentFile}`)
-    bot.componentInteractions.set(component.name, component)
+    import(`${bot.src}/interactions/components/${commponentFile}`).then((component: any) => {
+        bot.componentInteractions.set(component.name, component)
+    })
 }
 
 bot.login(process.env.TOKEN)
