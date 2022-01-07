@@ -4,7 +4,7 @@ import { readdirSync } from 'fs';
 import dotenv from 'dotenv';
 dotenv.config()
 
-const bot: VrexyClient = new VrexyClient();
+const bot = new VrexyClient();
 
 const eventFiles = readdirSync(`${bot.src}/events`).filter((file: string) => file.endsWith('.js'));
 const slashFiles = readdirSync(`${bot.src}/interactions/commands`).filter((file: string) => file.endsWith(".js"));

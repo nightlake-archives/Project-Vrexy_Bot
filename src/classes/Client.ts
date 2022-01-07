@@ -8,6 +8,7 @@ export class VrexyClient extends Client {
     color: number
     src: String
     fetchLangString
+    
     constructor() {
         super({
             intents: [Intents.FLAGS.GUILD_MEMBERS], allowedMentions: { parse: ['users'], repliedUser: false }

@@ -5,7 +5,7 @@ module.exports = {
     name: 'meta',
     async execute(bot: VrexyClient, interaction: CommandInteraction) {
         switch (interaction.options.getSubcommand()) {
-            case 'about':
+            case 'about': {
                 function getUsernames(userIDs: Array<String>) {
                     let usernames = []
 
@@ -34,6 +34,7 @@ module.exports = {
                         ]
                     }
                 ]})
+            }
         }
     }
 }
