@@ -1,0 +1,14 @@
+{
+    "META_ABOUT_TITLE": "About {appName}",
+    "META_ABOUT_DESC": "It's like {appName} but without meon copying and it's JS.",
+    "META_ABOUT_FIELDS_DEVELOPERS": "Developers",
+    "META_ABOUT_FIELDS_SPECIALS": "Special Thanks",
+    "META_ABOUT_LINKS_TITLE": "Links",
+    "META_ABOUT_LINKS_WEBSTIE": "Website",
+    "META_ABOUT_LINKS_TWITTER": "Twitter",
+    "META_ABOUT_TECH_TITLE": "Tech",
+    "META_ABOUT_STATS_TITLE": "Stats",
+    "META_ABOUT_STATS_SERVERS": "{guildCount} servers",
+    "META_ABOUT_STATS_USERS": "{userCount} users",
+    "META_ABOUT_VERSION": "Version {version}"
+}
