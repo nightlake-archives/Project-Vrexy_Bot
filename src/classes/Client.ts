@@ -2,8 +2,8 @@ import { Client, Intents, Collection } from 'discord.js';
 import { readdirSync } from 'fs';
 
 export class VrexyClient extends Client {
-    slashInteractions: Collection<String, String>
-    componentInteractions: Collection<String, String>
+    slashInteractions: Collection<String, any>
+    componentInteractions: Collection<String, any>
     langFiles: Record<string, any>
     color: number
     src: String

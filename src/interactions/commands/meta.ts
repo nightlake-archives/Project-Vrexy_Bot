@@ -19,7 +19,7 @@ module.exports = {
 
                 interaction.reply({ embeds: [
                     {
-                        title: `:information_source: ${bot.fetchLangString('APIUD', 'META_ABOUT_TITLE', {'appName': 'Vrexy'}).replace('$APPNAME$', 'Vrexy')}`,
+                        title: `:information_source: ${bot.fetchLangString('APIUD', 'META_ABOUT_TITLE', {'appName': 'Vrexy'})}`,
                         color: bot.color,
                         description: bot.fetchLangString('APIUD', 'META_ABOUT_DESC', {'appName': 'Vrexy'}),
                         fields: [
@@ -30,6 +30,12 @@ module.exports = {
                             {
                                 name: `:star: ${bot.fetchLangString('APIUD', 'META_ABOUT_FIELDS_SPECIALS', {})}`,
                                 value: getUsernames(['707675871355600967', '478823932913516544']).join('\n')
+                            },
+                            {
+                                name: `:link: ${bot.fetchLangString('APIUD', 'META_ABOUT_LINKS_TITLE', {})}`,
+                                value: [
+                                    `:globe_americas: (${bot.fetchLangString('APIUD', 'META_ABOUT_LINKS_WEBSITE', {})})[https://vrexy.xyz]`
+                                ].join('\n')
                             }
                         ]
                     }
