@@ -1,3 +1,5 @@
+import { Interaction } from 'discord.js';
+
 module.exports = {
     name: 'interactionCreate',
     once: false,
@@ -7,7 +9,7 @@ module.exports = {
 
             if (!command) return;
         
-            try {
+            try {   
                 await command.execute(interaction.client, interaction);
             } catch (error) {
                 console.error(error);

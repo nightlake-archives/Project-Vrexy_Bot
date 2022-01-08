@@ -22,7 +22,6 @@ export class VrexyClient extends Client {
         for (const langFile of readdirSync(`${process.cwd()}/i18n`).filter((file: String) => file.endsWith(".json"))) {
             const langFileData = require(`${process.cwd()}/i18n/${langFile}`)
             this.langFiles[langFile] = langFileData
-            // console.log(langFile, langFileData)
         }
 
         this.fetchLangString = (lang: string, translatebleString: string, variables: Record<string, any>): string => {
