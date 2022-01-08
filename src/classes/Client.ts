@@ -22,11 +22,11 @@ export class VrexyClient extends Client {
         for (const langFile of readdirSync(`${process.cwd()}/i18n`).filter((file: String) => file.endsWith(".json"))) {
             const langFileData = require(`${process.cwd()}/i18n/${langFile}`)
             this.langFiles[langFile] = langFileData
+            // console.log(langFile, langFileData)
         }
 
         this.fetchLangString = (lang: string, translatebleString: string, variables: Record<string, any>): string => {
-            if (lang = "APIUD") lang = "en-US"
-            const langFile = this.langFiles[lang]
+            const langFile = this.langFiles[`${lang}.json`]
 
             function formatVars(str: string, variables: Record<string, any>): string {
                 return str.replace(new RegExp("\{([^\{]+)\}", "g"), function(_unused, varName){
@@ -34,7 +34,7 @@ export class VrexyClient extends Client {
                 })
             }
 
-            return formatVars(langFile[translatebleString], variables)
+            return formatVars(langFile[translatebleString], variables);
         }
     }
 }
