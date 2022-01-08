@@ -26,7 +26,7 @@ module.exports = {
                             {
                                 name: `:link: ${bot.fetchLangString('en-US', 'META_ABOUT_LINKS_TITLE', {})}`,
                                 value: [
-                                    `:globe_americas: (${bot.fetchLangString('en-US', 'META_ABOUT_LINKS_WEBSITE', {})})[https://vrexy.xyz]`
+                                    `:earth_americas: [${bot.fetchLangString('en-US', 'META_ABOUT_LINKS_WEBSITE', {})}](https://vrexy.xyz)`
                                 ].join('\n')
                             }
                         ]
