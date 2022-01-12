@@ -11,7 +11,7 @@ const slashFiles = readdirSync(`${bot.src}/interactions/commands`).filter((file:
 const commponentFiles = readdirSync(`${bot.src}/interactions/components`).filter(file => file.endsWith('.js'));
 
 for (const eventFile of eventFiles) {
-	const event: any = require(`${bot.src}/events/${eventFile.replace('.js', '')}`);
+	const event = require(`${bot.src}/events/${eventFile.replace('.js', '')}`);
 	if (event.once) {
 		bot.once(event.name, (...args: Array<any>) => event.execute(...args));
 	}
@@ -21,12 +21,12 @@ for (const eventFile of eventFiles) {
 }
 
 for (const slashFile of slashFiles) {
-	const command: any = require(`${bot.src}/interactions/commands/${slashFile}`);
+	const command= require(`${bot.src}/interactions/commands/${slashFile}`);
 	bot.slashInteractions.set(command.name, command);
 }
 
 for (const componentFile of commponentFiles) {
-	const component: any = require(`${bot.src}/interactions/components/${componentFile}`);
+	const component = require(`${bot.src}/interactions/components/${componentFile}`);
 	bot.componentInteractions.set(component.name, component);
 }
 
