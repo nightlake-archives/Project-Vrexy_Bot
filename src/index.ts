@@ -21,7 +21,7 @@ for (const eventFile of eventFiles) {
 }
 
 for (const slashFile of slashFiles) {
-	const command= require(`${bot.src}/interactions/commands/${slashFile}`);
+	const command = require(`${bot.src}/interactions/commands/${slashFile}`);
 	bot.slashInteractions.set(command.name, command);
 }
 
