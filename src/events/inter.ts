@@ -1,21 +1,17 @@
-import { Interaction } from 'discord.js';
+import { CommandInteraction, ButtonInteraction, SelectMenuInteraction } from 'discord.js';
+import { VrexyClient } from '../classes/Client';
 
-module.exports = {
-	name: 'interactionCreate',
-	once: false,
-	async execute(interaction: any) {
-		if (interaction.isCommand()) {
-			const command = interaction.client.slashInteractions.get(interaction.commandName);
+export default async function execute(bot: VrexyClient, interaction: (CommandInteraction | ButtonInteraction | SelectMenuInteraction)) {
+	if (interaction.isCommand()) {
+		const command = bot.slashInteractions.get(interaction.commandName);
+		if (!command) return;
 
-			if (!command) return;
-
-			try {
-				await command.execute(interaction.client, interaction);
-			}
-			catch (error) {
-				console.error(error);
-				await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-			}
+		try {
+			await command.execute(bot, interaction);
 		}
-	},
-};
+		catch (error) {
+			console.error(error);
+			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		}
+	}
+}
