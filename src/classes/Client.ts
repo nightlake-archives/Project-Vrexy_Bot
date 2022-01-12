@@ -24,16 +24,17 @@ export class VrexyClient extends Client {
 			this.langFiles[langFile] = langFileData;
 		}
 
+		// deprecated
 		this.fetchLangString = (lang: string, translatebleString: string, variables: Record<string, any>): string => {
 			const langFile = this.langFiles[`${lang}.json`];
 
-			function formatVars(str: string, variables: Record<string, any>): string {
-				return str.replace(new RegExp('\{([^\{]+)\}', 'g'), function(_unused, varName) {
+			function formatVars(str: string): string {
+				return str.replace(new RegExp('{([^{]+)}', 'g'), function(_unused, varName) {
 					return variables[varName];
 				});
 			}
 
-			return formatVars(langFile[translatebleString], variables);
+			return formatVars(langFile[translatebleString]);
 		};
 	}
 }
