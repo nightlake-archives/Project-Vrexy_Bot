@@ -15,7 +15,7 @@ export class VrexyClient extends Client {
 		});
 		this.slashInteractions = new Collection();
 		this.componentInteractions = new Collection();
-		this.langFiles = new Collection();
+		this.langFiles = {}
 		this.color = 0xE67E22;
 		this.src = `${process.cwd()}/dist`;
 
