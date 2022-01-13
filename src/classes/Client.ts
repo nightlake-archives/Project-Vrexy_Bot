@@ -1,4 +1,4 @@
-import { Client, Intents, Collection } from 'discord.js';
+import { Client, Intents } from 'discord.js';
 import LocaleManager from './managers/LocaleManager';
 
 export class VrexyClient extends Client {
