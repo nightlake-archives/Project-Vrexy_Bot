@@ -1,7 +1,7 @@
 import { CommandInteraction, ButtonInteraction, SelectMenuInteraction } from 'discord.js';
 import { VrexyClient } from '../classes/Client';
 
-export default async function execute(bot: VrexyClient, interaction: (CommandInteraction | ButtonInteraction | SelectMenuInteraction)) {
+export async function execute(bot: VrexyClient, interaction: (CommandInteraction | ButtonInteraction | SelectMenuInteraction)) {
 	if (interaction.isCommand()) {
 		const command = bot.commands.get(interaction.commandName);
 		if (!command) return;
