@@ -1,9 +1,11 @@
 import { Client, Intents } from 'discord.js';
+import CommandManager from './managers/CommandManager';
 import EventManager from './managers/EventManager';
 import LocaleManager from './managers/LocaleManager';
 
 export class VrexyClient extends Client {
 	locale: LocaleManager;
+	commands: CommandManager;
 	color: number;
 	src: string;
 	token: string;
@@ -20,6 +22,7 @@ export class VrexyClient extends Client {
 
 	init() {
 		new EventManager(this);
+		this.commands = new CommandManager();
 		this.login(this.token);
 
 		process.on('unhandledRejection', error => {

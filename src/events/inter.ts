@@ -3,7 +3,7 @@ import { VrexyClient } from '../classes/Client';
 
 export default async function execute(bot: VrexyClient, interaction: (CommandInteraction | ButtonInteraction | SelectMenuInteraction)) {
 	if (interaction.isCommand()) {
-		const command = bot.slashInteractions.get(interaction.commandName);
+		const command = bot.commands.map.get(interaction.commandName);
 		if (!command) return;
 
 		try {
