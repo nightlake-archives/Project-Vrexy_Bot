@@ -1,4 +1,5 @@
 import { Client, Intents } from 'discord.js';
+import EventManager from './managers/EventManager';
 import LocaleManager from './managers/LocaleManager';
 
 export class VrexyClient extends Client {
@@ -18,6 +19,7 @@ export class VrexyClient extends Client {
 	}
 
 	init() {
+		new EventManager(this);
 		this.login(this.token);
 
 		process.on('unhandledRejection', error => {
