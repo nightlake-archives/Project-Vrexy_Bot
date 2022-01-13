@@ -7,7 +7,7 @@ export default class LocaleManager {
 	constructor() {
 		this.locales = {} as Record<keyof Locales, LocaleType>;
 
-		const localeFiles = readdirSync(`${process.cwd()}/../i18n`);
+		const localeFiles = readdirSync(`${process.cwd()}/i18n`);
 		localeFiles.forEach(async localeFile => {
 			const name = localeFile.split('.')[0];
 
