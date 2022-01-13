@@ -16,7 +16,7 @@ export default class LocaleManager {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	formatVars(str: string, variables: Record<string, any>): string {
+	format(str: string, variables: Record<string, any>): string {
 		return str.replace(new RegExp('{([^{]+)}', 'g'), function(_unused, varName) {
 			return variables[varName];
 		});
@@ -25,6 +25,6 @@ export default class LocaleManager {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	get(locale: Locales, localeString: LocaleStrings, variables: Record<string, any>): LocaleType[LocaleStrings] {
 		const loc = this.locales[locale as keyof Locales] ?? this.locales['en-US' as keyof Locales];
-		return loc[localeString];
+		return this.format(loc[localeString], variables);
 	}
 }
