@@ -9,7 +9,6 @@ export class VrexyClient extends Client {
 	commands: Collection<string, Command>;
 	color: number;
 	src: string;
-	token: string;
 
 	constructor(token: string) {
 		super({
