@@ -8,7 +8,6 @@ export class VrexyClient extends Client {
 	locale: LocaleManager;
 	color: number;
 	src: string;
-	fetchLangString;
 
 	constructor() {
 		super({
@@ -18,7 +17,6 @@ export class VrexyClient extends Client {
 		this.componentInteractions = new Collection();
 		this.locale = new LocaleManager();		this.color = 0xE67E22;
 		this.src = `${process.cwd()}/dist`;
-
 	}
 }
 

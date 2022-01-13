@@ -9,16 +9,22 @@ export default class LocaleManager {
 
 		const localeFiles = readdirSync(`${process.cwd()}/../i18n`);
 		localeFiles.forEach(async localeFile => {
-			const cleanName = localeFile.split('.');
-			const name: Locales = cleanName[0];
+			const name = localeFile.split('.')[0];
 
-			this.locales[name] = await import(`${process.cwd()}/i18n/${localeFile}`);
+			this.locales[name as keyof Locales] = await import(`${process.cwd()}/i18n/${localeFile}`);
 		});
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	get(localeString: LocaleStrings, variables: Record<string, any>): LocaleType[LocaleStrings] {
-		// not implemented
-		return 'META_ABOUT_TITLE';
+	formatVars(str: string, variables: Record<string, any>): string {
+		return str.replace(new RegExp('{([^{]+)}', 'g'), function(_unused, varName) {
+			return variables[varName];
+		});
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	get(locale: Locales, localeString: LocaleStrings, variables: Record<string, any>): LocaleType[LocaleStrings] {
+		const loc = this.locales[locale as keyof Locales] ?? this.locales['en-US' as keyof Locales];
+		return loc[localeString];
 	}
 }
