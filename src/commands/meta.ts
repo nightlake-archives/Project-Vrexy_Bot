@@ -2,7 +2,7 @@ import { VrexyClient } from '../classes/Client';
 import { CommandInteraction, version } from 'discord.js';
 import { stripIndent } from 'common-tags';
 
-export default async function execute(bot: VrexyClient, interaction: CommandInteraction) {
+export async function execute(bot: VrexyClient, interaction: CommandInteraction) {
 	switch (interaction.options.getSubcommand()) {
 	case 'about': {
 		const developers = (await Promise.all(['348591272476540928'].map(async id => (await bot.users.fetch(id)).tag))).join('\n');
