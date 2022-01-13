@@ -1,5 +1,4 @@
 import { Client, Intents, Collection } from 'discord.js';
-import { readdirSync } from 'fs';
 import LocaleManager from './managers/LocaleManager';
 
 export class VrexyClient extends Client {
@@ -15,7 +14,8 @@ export class VrexyClient extends Client {
 		});
 		this.slashInteractions = new Collection();
 		this.componentInteractions = new Collection();
-		this.locale = new LocaleManager();		this.color = 0xE67E22;
+		this.locale = new LocaleManager();
+		this.color = 0xE67E22;
 		this.src = `${process.cwd()}/dist`;
 	}
 }
