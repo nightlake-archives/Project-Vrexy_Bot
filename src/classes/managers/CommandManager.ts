@@ -14,5 +14,6 @@ export default class CommandManager {
 			const commandName = commandFile.split('.')[0];
 			this.map.set(commandName, await import(`${process.cwd()}/dist/commands/${commandFile}`));
 		});
+		return this.map;
 	}
 }
