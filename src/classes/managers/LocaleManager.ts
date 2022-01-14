@@ -15,16 +15,14 @@ export default class LocaleManager {
 		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	format(str: string, variables: Record<string, any>): string {
-		return str.replace(new RegExp('{([^{]+)}', 'g'), function(_unused, varName) {
-			return variables[varName];
-		});
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	get(locale: keyof Locales, localeString: LocaleStrings, variables: Record<string, any>): LocaleType[LocaleStrings] {
+	get(locale: keyof Locales, localeString: LocaleStrings, variables: Record<string, unknown> = {}): LocaleType[LocaleStrings] {
 		const loc = this.locales[locale as keyof Locales] ?? this.locales['en-US' as keyof Locales];
-		return this.format(loc[localeString], variables);
+		let translatedString = loc[localeString];
+
+		for (const [key, value] of Object.entries(variables)) {
+			translatedString = translatedString.replaceAll(`{${key}}`, value.toString());
+		}
+
+		return translatedString;
 	}
 }

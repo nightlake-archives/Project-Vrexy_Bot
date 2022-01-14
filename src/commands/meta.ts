@@ -17,25 +17,25 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 				description: bot.locale.get(locale, 'META_ABOUT_DESC', { 'appName': 'Vrexy' }),
 				fields: [
 					{
-						name: `<:bot_dev:836605174696509471> ${bot.locale.get(locale, 'META_ABOUT_FIELDS_DEVELOPERS', {})}`,
+						name: `<:bot_dev:836605174696509471> ${bot.locale.get(locale, 'META_ABOUT_FIELDS_DEVELOPERS')}`,
 						value: developers,
 						inline: true,
 					},
 					{
-						name: `:star: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_SPECIALS', {})}`,
+						name: `:star: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_SPECIALS')}`,
 						value: specials,
 						inline: true,
 					},
 					{
-						name: `:link: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_LINKS', {})}`,
+						name: `:link: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_LINKS')}`,
 						value: [
-							`:earth_americas: [${bot.locale.get(locale, 'META_ABOUT_LINKS_WEBSITE', {})}](https://vrexy.xyz)`,
-							`:bird: [${bot.locale.get(locale, 'META_ABOUT_LINKS_TWITTER', {})}](https://twitter.com/VrexyBot)`,
+							`:earth_americas: [${bot.locale.get(locale, 'META_ABOUT_LINKS_WEBSITE')}](https://vrexy.xyz)`,
+							`:bird: [${bot.locale.get(locale, 'META_ABOUT_LINKS_TWITTER')}](https://twitter.com/VrexyBot)`,
 						].join('\n'),
 						inline: true,
 					},
 					{
-						name: `:desktop: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_TECH', {})} `,
+						name: `:desktop: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_TECH')} `,
 						value: stripIndent`
 							[discord.js](https://discord.js.org): ${version}
 							[node.js](https://nodejs.org): ${process.version}
@@ -43,7 +43,7 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 						inline: true,
 					},
 					{
-						name: `:bar_chart: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_STATS', {})}`,
+						name: `:bar_chart: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_STATS')}`,
 						value: stripIndent`
 							:homes: ${bot.locale.get(locale, 'META_ABOUT_STATS_SERVERS', { 'guildCount': bot.guilds.cache.size })}
 							:family: ${bot.locale.get(locale, 'META_ABOUT_STATS_USERS', { 'userCount': bot.users.cache.size })}
