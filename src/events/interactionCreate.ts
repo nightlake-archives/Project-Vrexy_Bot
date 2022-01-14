@@ -15,6 +15,8 @@ export async function execute(bot: VrexyClient, interaction: (CommandInteraction
 		}
 	}
 	else if (interaction.isMessageComponent) {
+		if (!interaction.inCachedGuild()) return;
+
 		const interactionData = interaction.customId.split(':');
 		const component = bot.components.get(interactionData[0]);
 		if (!component) return;

@@ -1,6 +1,7 @@
 import { VrexyClient } from '../classes/Client';
-import { MessageComponentInteraction } from 'discord.js';
+import { SelectMenuInteraction } from 'discord.js';
+import clean from '../utils/clean';
 
-export async function execute(bot: VrexyClient, interaction: MessageComponentInteraction, interactionData: string[]) {
-	interaction.channel.send(`h! ${interactionData}, ${interaction.component.type}`);
+export async function execute(bot: VrexyClient, interaction: SelectMenuInteraction<'cached'>, interactionData: string[]) {
+	interaction.channel.send(`h! ${interactionData}, ${clean(bot, interaction.component)}`);
 }
