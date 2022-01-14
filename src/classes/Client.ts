@@ -18,7 +18,7 @@ export class VrexyClient extends Client {
 
 	constructor(token: string) {
 		super({
-			intents: [Intents.FLAGS.GUILD_MEMBERS], partials: ['MESSAGE'], allowedMentions: { parse: ['users'], repliedUser: false },
+			intents: [Intents.FLAGS.GUILD_MEMBERS], partials: ['MESSAGE', 'CHANNEL'], allowedMentions: { parse: ['users'], repliedUser: false },
 		});
 		this.locale = new LocaleManager();
 		this.color = 0xE67E22;
