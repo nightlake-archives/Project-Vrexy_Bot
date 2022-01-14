@@ -23,7 +23,7 @@ export default class LocaleManager {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	get(locale: Locales, localeString: LocaleStrings, variables: Record<string, any>): LocaleType[LocaleStrings] {
+	get(locale: keyof Locales, localeString: LocaleStrings, variables: Record<string, any>): LocaleType[LocaleStrings] {
 		const loc = this.locales[locale as keyof Locales] ?? this.locales['en-US' as keyof Locales];
 		return this.format(loc[localeString], variables);
 	}
