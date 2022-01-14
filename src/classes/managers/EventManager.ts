@@ -10,8 +10,8 @@ export default class EventManager {
 			const eventName = eventFile.split('.')[0];
 			const eventCode = await import(`${process.cwd()}/dist/events/${eventFile}`);
 			// eslint-disable-next-line no-shadow
-			bot.on(eventName, (...eventFile) => {
-				eventCode.execute(bot, ...eventFile);
+			bot.on(eventName, async (...eventFile) => {
+				await eventCode.execute(bot, ...eventFile);
 			});
 		});
 	}
