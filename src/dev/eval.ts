@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { VrexyClient } from 'src/classes/Client';
-import clean from 'src/utils/clean';
+import clean from '../utils/clean';
 
 export async function execute(bot: VrexyClient, message: Message, args: string[]): Promise<Message> {
 	if (args.includes('bot.token')) return message.reply('<:app_error:894254521025445979> No!');
