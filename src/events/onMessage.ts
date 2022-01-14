@@ -3,11 +3,10 @@ import { VrexyClient } from 'src/classes/Client';
 
 export async function execute(bot: VrexyClient, message: Message) {
 	if (message.author.bot) return;
-	const prefix = `<@${bot.user.id}>` || `<@!${bot.user.id}>`;
-	if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`<@!${bot.user.id}>`)) {
+	if (message.content.startsWith(bot.user.toString())) {
 		if (!bot.devs.includes(message.author.id)) return;
 
-		const args = message.content.slice(prefix.length).trim().split(/ +/);
+		const args = message.content.slice(bot.user.toString().length).trim().split(/ +/);
 		const commandName = args.shift().toLowerCase();
 		const command = bot.devUtils.get(commandName);
 
