@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { Routes, ChannelType } = require('discord-api-types/v9');
 require('dotenv').config();
 
 const commands = [
@@ -8,6 +8,12 @@ const commands = [
 		subcommand.setName('about')
 			.setDescription('Views info about the bot')
 	),
+	new SlashCommandBuilder().setName('roleDropdown').addSubcommand(subCommand => 
+		subCommand.setName('deploy')
+			.setDescription('Deploys a role dropdown in the specified channel.')
+			.addStringOption(option => option.setName('category').setDescription('The category to deploy.').setRequired(true))
+			.addChannelOption(option => option.setName('channel').setDescription('The channel to deploy the dropdown to.').setRequired(true).addChannelType(ChannelType.GuildText))
+	)
 ]
 	.map(command => command.toJSON());
 
