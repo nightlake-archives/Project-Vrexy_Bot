@@ -14,6 +14,7 @@ export class VrexyClient extends Client {
 	components: Collection<string, Component>;
 	devUtils: Collection<string, DevUtil>;
 	color: number;
+	devs: string[];
 
 	constructor(token: string) {
 		super({
@@ -21,6 +22,7 @@ export class VrexyClient extends Client {
 		});
 		this.locale = new LocaleManager();
 		this.color = 0xE67E22;
+		this.devs = ['348591272476540928'];
 		this.token = token;
 	}
 

@@ -5,7 +5,7 @@ import { stripIndent } from 'common-tags';
 export async function execute(bot: VrexyClient, interaction: CommandInteraction) {
 	switch (interaction.options.getSubcommand()) {
 	case 'about': {
-		const developers = (await Promise.all(['348591272476540928'].map(async id => (await bot.users.fetch(id)).tag))).join('\n');
+		const developers = (await Promise.all(bot.devs.map(async id => (await bot.users.fetch(id)).tag))).join('\n');
 		const specials = (await Promise.all(['707675871355600967', '478823932913516544'].map(async id => (await bot.users.fetch(id)).tag))).join('\n');
 
 		interaction.reply({ embeds: [

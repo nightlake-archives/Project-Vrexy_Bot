@@ -5,7 +5,7 @@ export async function execute(bot: VrexyClient, message: Message) {
 	if (message.author.bot) return;
 	const prefix = `<@${bot.user.id}>` || `<@!${bot.user.id}>`;
 	if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`<@!${bot.user.id}>`)) {
-		if (!['348591272476540928'].includes(message.author.id)) return;
+		if (!bot.devs.includes(message.author.id)) return;
 
 		const args = message.content.slice(prefix.length).trim().split(/ +/);
 		const commandName = args.shift().toLowerCase();
