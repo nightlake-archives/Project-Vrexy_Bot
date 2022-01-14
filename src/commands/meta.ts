@@ -25,7 +25,7 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 						inline: true,
 					},
 					{
-						name: `:link: ${bot.locale.get('en-US', 'META_ABOUT_LINKS_TITLE', {})}`,
+						name: `:link: ${bot.locale.get('en-US', 'META_ABOUT_FIELDS_LINKS', {})}`,
 						value: [
 							`:earth_americas: [${bot.locale.get('en-US', 'META_ABOUT_LINKS_WEBSITE', {})}](https://vrexy.xyz)`,
 							`:bird: [${bot.locale.get('en-US', 'META_ABOUT_LINKS_TWITTER', {})}](https://twitter.com/VrexyBot)`,
@@ -33,7 +33,7 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 						inline: true,
 					},
 					{
-						name: `:desktop: ${bot.locale.get('en-US', 'META_ABOUT_TECH_TITLE', {})} `,
+						name: `:desktop: ${bot.locale.get('en-US', 'META_ABOUT_FIELDS_TECH', {})} `,
 						value: stripIndent`
 							[discord.js](https://discord.js.org): ${version}
 							[node.js](https://nodejs.org): ${process.version}
@@ -41,7 +41,7 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 						inline: true,
 					},
 					{
-						name: `:bar_chart: ${bot.locale.get('en-US', 'META_ABOUT_STATS_TITLE', {})}`,
+						name: `:bar_chart: ${bot.locale.get('en-US', 'META_ABOUT_FIELDS_STATS', {})}`,
 						value: stripIndent`
 							:homes: ${bot.locale.get('en-US', 'META_ABOUT_STATS_SERVERS', { 'guildCount': bot.guilds.cache.size })}
 							:family: ${bot.locale.get('en-US', 'META_ABOUT_STATS_USERS', { 'userCount': bot.users.cache.size })}
