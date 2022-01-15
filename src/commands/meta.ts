@@ -4,11 +4,12 @@ import { stripIndent } from 'common-tags';
 import { Locales } from 'src/types/Locale.type';
 
 export async function execute(bot: VrexyClient, interaction: CommandInteraction) {
+	const locale = (interaction.locale as keyof Locales);
+
 	switch (interaction.options.getSubcommand()) {
 	case 'about': {
 		const developers = (await Promise.all(bot.devs.map(async id => (await bot.users.fetch(id)).tag))).join('\n');
 		const specials = (await Promise.all(['707675871355600967', '478823932913516544'].map(async id => (await bot.users.fetch(id)).tag))).join('\n');
-		const locale = (interaction.locale as keyof Locales);
 
 		interaction.reply({ embeds: [
 			{
@@ -37,8 +38,8 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 					{
 						name: `:desktop: ${bot.locale.get(locale, 'META_ABOUT_FIELDS_TECH')} `,
 						value: stripIndent`
-							[discord.js](https://discord.js.org): ${version}
-							[node.js](https://nodejs.org): ${process.version}
+							<:discordJS:931090194726260736> [discord.js](https://discord.js.org): ${version}
+							<:nodeJS:931090194512367667> [node.js](https://nodejs.org): ${process.version}
 							`,
 						inline: true,
 					},
