@@ -1,21 +1,24 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
-const { Routes, ChannelType } = require('discord-api-types/v9');
+const { Routes } = require('discord-api-types/v9');
 require('dotenv').config();
 
 const commands = [
-	new SlashCommandBuilder().setName('meta').setDescription('Info about Vrexy').addSubcommand(subcommand =>
-		subcommand.setName('about')
-			.setDescription('Views info about the bot')
-	),
-	new SlashCommandBuilder().setName('roleDropdown').addSubcommand(subCommand => 
-		subCommand.setName('deploy')
-			.setDescription('Deploys a role dropdown in the specified channel.')
-			.addStringOption(option => option.setName('category').setDescription('The category to deploy.').setRequired(true))
-			.addChannelOption(option => option.setName('channel').setDescription('The channel to deploy the dropdown to.').setRequired(true).addChannelType(ChannelType.GuildText))
-	)
+	{
+		name: 'meta', description: 'VrexyGroupCommands.Meta',
+		options: [
+			{ name: 'about', description: 'Views info about the bot.', type: 1 }
+		]
+	},
+	{
+		name: 'roledrop', description: 'VrexyGroupCommands.RoleDropdown',
+		options: [
+			{ name: 'deploy', description: 'Deploys a role dropdown in the specified channel.', options: [
+				{ name: 'category', description: 'The category to deploy.', type: 3 },
+				{ name: 'channel', description: 'The channel to deploy the category to.', type: 7, channel_types: [0] }
+			], type: 1}
+		]
+	}
 ]
-	.map(command => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
