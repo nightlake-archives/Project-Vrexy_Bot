@@ -15,7 +15,7 @@ export default class LocaleManager {
 		});
 	}
 
-	get(locale: keyof Locales, localeString: LocaleStrings, variables: Record<string, unknown> = {}): LocaleType[LocaleStrings] {
+	get(locale: string, localeString: LocaleStrings, variables: Record<string, unknown> = {}): LocaleType[LocaleStrings] {
 		const loc = this.locales[locale as keyof Locales] ?? this.locales['en-US' as keyof Locales];
 		let translatedString = loc[localeString];
 
