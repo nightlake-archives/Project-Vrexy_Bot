@@ -13,8 +13,8 @@ const commands = [
 		name: 'roledrop', description: 'VrexyGroupCommands.RoleDropdown',
 		options: [
 			{ name: 'deploy', description: 'Deploys a role dropdown in the specified channel.', options: [
-				{ name: 'category', description: 'The category to deploy.', type: 3 },
-				{ name: 'channel', description: 'The channel to deploy the category to.', type: 7, channel_types: [0] }
+				{ name: 'category', description: 'The category to deploy.', type: 3, autocomplete: true, required: true },
+				{ name: 'channel', description: 'The channel to deploy the category to.', type: 7, channel_types: [0], required: true }
 			], type: 1}
 		]
 	}
