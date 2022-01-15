@@ -6,8 +6,8 @@ export async function execute(bot: VrexyClient, interaction: CommandInteraction)
 	switch (interaction.options.getSubcommand()) {
 	case 'deploy': {
 
-		// const collection = bot.db.collection('guild');
-		// const guildData = await collection.findOne({ guild: interaction.guild.id });
+		const collection = bot.db.collection('guild');
+		const guildData = await collection.findOne({ guild: interaction.guild.id });
 
 		const categoryRoles = [{
 			label: 'the rock',
