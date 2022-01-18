@@ -1,24 +1,24 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const fs = require('fs');
 require('dotenv').config();
 
-const commands = [
-	{
-		name: 'meta', description: 'VrexyGroupCommands.Meta',
-		options: [
-			{ name: 'about', description: 'Views info about the bot.', type: 1 }
-		]
-	},
-	{
-		name: 'roledrop', description: 'VrexyGroupCommands.RoleDropdown',
-		options: [
-			{ name: 'deploy', description: 'Deploys a role dropdown in the specified channel.', options: [
-				{ name: 'category', description: 'The category to deploy.', type: 3, required: true },
-				{ name: 'channel', description: 'The channel to deploy the category to.', type: 7, channel_types: [0], required: true }
-			], type: 1}
-		]
+const commandFiles = fs.readdirSync('./dist/commands').filter(file => file.endsWith('.js'));
+const commands = [];
+
+for (const file of commandFiles) {
+	const command = require(`./dist/commands/${file}`);
+	if (command.data.slash) {
+		const data = command.data.slash;
+		commands.push({data, type: 1});
 	}
-]
+
+	if (command.data.context) {
+		const data = command.data.context;
+		commands.push({data, type: 2});
+	}
+}
+
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
