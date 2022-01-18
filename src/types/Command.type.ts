@@ -1,6 +1,9 @@
-import { CommandInteraction } from 'discord.js';
+import { BaseCommandInteraction } from 'discord.js';
 import { VrexyClient } from 'src/classes/Client';
+import { } from 'discord-api-types';
 
 export interface Command {
-	execute: (bot: VrexyClient, interaction: CommandInteraction) => void;
+	data: Record<string, Record<string, unknown>>;
+	run: (bot: VrexyClient, interaction: BaseCommandInteraction) => void;
+	custom?: Record<string, unknown>;
 }
