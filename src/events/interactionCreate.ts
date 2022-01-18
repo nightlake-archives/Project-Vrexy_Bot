@@ -15,16 +15,23 @@ export async function execute(bot: VrexyClient, interaction: Interaction) {
 		}
 	}
 	else if (interaction.isMessageComponent()) {
+		if (!interaction.inCachedGuild()) return;
+
 		if (interaction.isAutocomplete()) {
 			const command = bot.commands.get(interaction.commandName);
+			await command?.autocomplete(bot, interaction);
+			return;
+		}
 
-			try {
-				await command?.autocomplete(bot, interaction);
-			}
-			catch (error) {
-				console.error(error);
-			}
+		const data = interaction.customId.split(':');
+		const component = bot.components.get(data[0]);
 
+		try {
+			if (component?.checks?.sameAuthor && interaction.message.author.id !== interaction.member.user.id) return;
+			await component?.run(bot, interaction, data);
+		}
+		catch (error) {
+			console.error(error);
 			return;
 		}
 	}
