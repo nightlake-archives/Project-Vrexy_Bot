@@ -24,6 +24,8 @@ export async function execute(bot: VrexyClient, interaction: Interaction) {
 			catch (error) {
 				console.error(error);
 			}
+
+			return;
 		}
 	}
 }
