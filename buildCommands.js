@@ -8,15 +8,8 @@ const commands = [];
 
 for (const file of commandFiles) {
 	const command = require(`./dist/commands/${file}`);
-	if (command.data.slash) {
-		const data = command.data.slash;
-		commands.push({data, type: 1});
-	}
-
-	if (command.data.context) {
-		const data = command.data.context;
-		commands.push({data, type: 2});
-	}
+	if (command.data.slash) commands.push(command.data.slash.toJSON())
+	if (command.data.context) commands.push(command.data.context.toJSON())
 }
 
 
