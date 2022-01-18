@@ -2,6 +2,8 @@ import { Interaction } from 'discord.js';
 import { VrexyClient } from '../classes/Client';
 
 export async function execute(bot: VrexyClient, interaction: Interaction) {
+	if (!interaction.inCachedGuild()) return;
+
 	if (interaction.isApplicationCommand()) {
 		const command = bot.commands.get(interaction.commandName)
 			|| bot.commands.find(cmd => cmd.data.context?.name === interaction.commandName);
@@ -15,8 +17,6 @@ export async function execute(bot: VrexyClient, interaction: Interaction) {
 		}
 	}
 	else if (interaction.isMessageComponent()) {
-		if (!interaction.inCachedGuild()) return;
-
 		if (interaction.isAutocomplete()) {
 			const command = bot.commands.get(interaction.commandName);
 			await command?.autocomplete(bot, interaction);
