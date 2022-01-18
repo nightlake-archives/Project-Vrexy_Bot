@@ -13,6 +13,8 @@ export interface LocaleType {
 	META_ABOUT_STATS_SERVERS: string,
 	META_ABOUT_STATS_USERS: string,
 	META_ABOUT_VERSION: string,
+	ERROR_COMMAND_404: string,
+	ERROR_COMMAND_EXECUTION: string,
 }
 
 export type LocaleStrings = keyof LocaleType;
