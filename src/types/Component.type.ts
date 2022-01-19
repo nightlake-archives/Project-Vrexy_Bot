@@ -1,6 +1,11 @@
-import { ButtonInteraction, SelectMenuInteraction } from 'discord.js';
+import { MessageComponentInteraction } from 'discord.js';
 import { VrexyClient } from 'src/classes/Client';
 
+interface Checks {
+	sameAuthor: boolean;
+}
+
 export interface Component {
-	execute: (bot: VrexyClient, interaction: ButtonInteraction | SelectMenuInteraction, interactionData: string[]) => void;
+	run: (bot: VrexyClient, interaction: MessageComponentInteraction, interactionData: string[]) => void;
+	checks?: Checks
 }

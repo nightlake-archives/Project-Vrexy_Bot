@@ -1,32 +1,37 @@
-import { CommandInteraction, ButtonInteraction, SelectMenuInteraction } from 'discord.js';
+import { Interaction } from 'discord.js';
 import { VrexyClient } from '../classes/Client';
 
-export async function execute(bot: VrexyClient, interaction: (CommandInteraction | ButtonInteraction | SelectMenuInteraction)) {
-	if (interaction.isCommand()) {
-		const command = bot.commands.get(interaction.commandName);
-		if (!command) return;
+export async function execute(bot: VrexyClient, interaction: Interaction) {
+	if (!interaction.inCachedGuild()) return;
+
+	if (interaction.isApplicationCommand()) {
+		const command = bot.commands.get(interaction.commandName)
+			|| bot.commands.find(cmd => cmd.data.context?.name === interaction.commandName);
 
 		try {
-			await command.execute(bot, interaction);
+			await command?.run(bot, interaction);
 		}
 		catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			return interaction.reply(`<:app_error:894254521025445979> ${bot.locale.get(interaction.locale, 'ERROR_COMMAND_EXECUTION', { errorID: interaction.id })}`);
 		}
 	}
-	else if (interaction.isMessageComponent) {
-		if (!interaction.inCachedGuild()) return;
+	else if (interaction.isMessageComponent()) {
+		if (interaction.isAutocomplete()) {
+			const command = bot.commands.get(interaction.commandName);
+			await command?.autocomplete(bot, interaction);
+			return;
+		}
 
-		const interactionData = interaction.customId.split(':');
-		const component = bot.components.get(interactionData[0]);
-		if (!component) return;
+		const data = interaction.customId.split(':');
+		const component = bot.components.get(data[0]);
 
 		try {
-			await component.execute(bot, interaction, interactionData);
+			if (component?.checks?.sameAuthor && interaction.message.author.id !== interaction.member.user.id) return;
+			await component?.run(bot, interaction, data);
 		}
 		catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'There was an issue while executing this component!', ephemeral: true });
 		}
 	}
 }
