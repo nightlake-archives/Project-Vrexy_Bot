@@ -11,7 +11,34 @@ export default class CommandManager {
 	load() {
 		const commandDir = readdirSync(`${process.cwd()}/dist/commands`);
 		commandDir.forEach(async commandFile => {
-			const commandName = commandFile.split('.')[0];
+			if (!commandFile.endsWith('.js')) {
+				const subCommands = readdirSync(`${process.cwd()}/dist/commands/${commandFile}/`);
+
+				subCommands.forEach(async subCommand => {
+					const [subName] = subCommand.split('.');
+					if (subName === 'index') return;
+
+					if (!commandFile.endsWith('.js')) {
+						const groupSubCommands = readdirSync(`${process.cwd()}/dist/commands/${commandFile}/${subName}`);
+
+						groupSubCommands.forEach(async groupSubCommand => {
+							const [groupSubName] = groupSubCommand.split('.');
+							if (subName === 'index') return;
+
+							this.map.set(
+								`${commandFile}/${subName}/${groupSubName}`,
+								await import(`${process.cwd()}/dist/commands/${commandFile}/${subName}/${groupSubName}`)
+							);
+						});
+					}
+
+					this.map.set(
+						`${commandFile}/${subName}`,
+						await import(`${process.cwd()}/dist/commands/${commandFile}/${subName}`)
+					);
+				});
+			}
+			const [commandName] = commandFile.split('.');
 			this.map.set(commandName, await import(`${process.cwd()}/dist/commands/${commandFile}`));
 		});
 		return this.map;
