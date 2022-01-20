@@ -32,20 +32,20 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 							inline: true,
 						},
 						{
-							name: i18next.t('meta:about.specials', { lng: interaction.locale }),
+							name: i18next.t('meta:about.specialThanks', { lng: interaction.locale }),
 							value: specials,
 							inline: true,
 						},
 						{
 							name: i18next.t('meta:about.links.title', { lng: interaction.locale }),
-							value: [
-								i18next.t('meta:about.links.wesbite', { lng: interaction.locale }),
-								i18next.t('meta:about.links.twitter', { lng: interaction.locale }),
-							].join('\n'),
+							value: stripIndent`
+							${i18next.t('meta:about.links.website', { link: 'https://vrexy.xyz', lng: interaction.locale })}
+							${i18next.t('meta:about.links.twitter', { link: 'https://twitter.com/@VrexyBot', lng: interaction.locale })}
+							`,
 							inline: true,
 						},
 						{
-							name: i18next.t('meta:about.links.tech', { lng: interaction.locale }),
+							name: i18next.t('meta:about.tech', { lng: interaction.locale }),
 							value: stripIndent`
 							<:discordJS:931090194726260736> [discord.js](https://discord.js.org): ${version}
 							<:nodeJS:931090194512367667> [node.js](https://nodejs.org): ${process.version}
@@ -55,7 +55,7 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 						{
 							name: i18next.t('meta:about.stats.title', { lng: interaction.locale }),
 							value: stripIndent`
-							${i18next.t('meta:about.stats.servers', { serverCount: bot.guilds.cache.size, lng: interaction.locale })}
+							${i18next.t('meta:about.stats.servers', { guildCountCount: bot.guilds.cache.size, lng: interaction.locale })}
 							${i18next.t('meta:about.stats.users', { userCount: bot.users.cache.size, lng: interaction.locale })}
 							`,
 							inline: true,
