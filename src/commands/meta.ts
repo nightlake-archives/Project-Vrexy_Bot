@@ -65,6 +65,9 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 						text: `Vrexy ${botVersion}`,
 						iconURL: 'https://cdn.discordapp.com/attachments/713675042143076356/933037231118110740/unknown.png',
 					},
+					thumbnail: {
+						url: 'https://cdn.discordapp.com/attachments/713675042143076356/933037231118110740/unknown.png',
+					},
 				},
 			],
 		});
