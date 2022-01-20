@@ -16,7 +16,7 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 			console.error(error);
 			return interaction.reply({
 				content: i18next.t('common:error.command', { errorID: interaction.id, lng: interaction.locale }),
-				ephemeral: true
+				ephemeral: true,
 			}).catch(() => null);
 		}
 	}
@@ -38,7 +38,7 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 			console.error(error);
 			return interaction.reply({
 				content: i18next.t('common:error.component', { errorID: interaction.id, lng: interaction.locale }),
-				ephemeral: true
+				ephemeral: true,
 			}).catch(() => null);
 		}
 	}
