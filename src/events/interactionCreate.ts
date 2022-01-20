@@ -14,7 +14,7 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 		}
 		catch (error) {
 			console.error(error);
-			return interaction.reply(i18next.t('common:errors.command', { errorID: interaction.id, lng: interaction.locale })).catch(() => null);
+			return interaction.reply(i18next.t('common:error.command', { errorID: interaction.id, lng: interaction.locale })).catch(() => null);
 		}
 	}
 	else if (interaction.isMessageComponent()) {
