@@ -1,8 +1,10 @@
 import { Client, Intents, Collection } from 'discord.js';
-import { Db, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
+
 import { Command } from 'src/types/Command.type';
 import { Component } from 'src/types/Component.type';
 import { DevUtil } from 'src/types/devCommand.type';
+
 import CommandManager from './managers/CommandManager';
 import ComponentManager from './managers/ComponentManager';
 import DevUtilManager from './managers/DevUtilManager';
@@ -11,14 +13,11 @@ import LocaleManager from './managers/LocaleManager';
 
 export class VrexyClient extends Client {
 	// managers and collections
-	locale: LocaleManager;
 	commands: Collection<string, Command>;
 	components: Collection<string, Component>;
 	devUtils: Collection<string, DevUtil>;
 	// mongo connection
 	mongo: MongoClient;
-	connection: Promise<MongoClient>;
-	db: Db;
 	// bot info
 	color: number;
 	devs: string[];
@@ -31,16 +30,14 @@ export class VrexyClient extends Client {
 		});
 		this.token = token;
 
-		this.locale = new LocaleManager();
 		this.color = 0xE67E22;
-		this.devs = ['348591272476540928'];
+		this.devs = ['348591272476540928', '478823932913516544'];
 
 		this.mongo = new MongoClient('mongodb://localhost:27017');
-		this.connection = this.mongo.connect();
-		this.db = this.mongo.db('vrexy');
 	}
 
 	init() {
+		new LocaleManager();
 		new EventManager(this);
 		this.commands = new CommandManager().load();
 		this.components = new ComponentManager().load();

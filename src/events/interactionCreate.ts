@@ -1,7 +1,8 @@
-import { Interaction } from 'discord.js';
+import { Interaction, Message } from 'discord.js';
+import i18next from 'i18next';
 import { VrexyClient } from '../classes/Client';
 
-export async function execute(bot: VrexyClient, interaction: Interaction) {
+export async function execute(bot: VrexyClient, interaction: Interaction): Promise<void | Message<true> > {
 	if (!interaction.inCachedGuild()) return;
 
 	if (interaction.isApplicationCommand()) {
@@ -13,7 +14,10 @@ export async function execute(bot: VrexyClient, interaction: Interaction) {
 		}
 		catch (error) {
 			console.error(error);
-			return interaction.reply(`<:app_error:894254521025445979> ${bot.locale.get(interaction.locale, 'ERROR_COMMAND_EXECUTION', { errorID: interaction.id })}`);
+			return interaction.reply({
+				content: i18next.t('common:error.command', { errorID: interaction.id, lng: interaction.locale }),
+				ephemeral: true,
+			}).catch(() => null);
 		}
 	}
 	else if (interaction.isMessageComponent()) {
@@ -32,6 +36,10 @@ export async function execute(bot: VrexyClient, interaction: Interaction) {
 		}
 		catch (error) {
 			console.error(error);
+			return interaction.reply({
+				content: i18next.t('common:error.component', { errorID: interaction.id, lng: interaction.locale }),
+				ephemeral: true,
+			}).catch(() => null);
 		}
 	}
 }
