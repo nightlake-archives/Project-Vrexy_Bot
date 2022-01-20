@@ -4,12 +4,18 @@ import { readdirSync } from 'fs';
 import { config } from 'dotenv';
 config();
 
-const commandFiles = readdirSync('./dist/commands').filter(file => file.endsWith('.js'));
+const commandFiles = readdirSync('./dist/commands');
 const releaseCommands: APIApplicationCommand[] = [];
 const devCommands: APIApplicationCommand[] = [];
 
 commandFiles.forEach(async file => {
-	const command = await import(`./dist/commands/${file}`);
+	let command;
+	if (!file.endsWith('.js')) {
+		command = await import(`./dist/commands/${file}/index`);
+	}
+	else {
+		command = await import(`./dist/commands/${file.split('.')[0]}`);
+	}
 
 	if (command.data.isDev) {
 		if (command.data.slash) devCommands.push(command.data.slash.toJSON());
