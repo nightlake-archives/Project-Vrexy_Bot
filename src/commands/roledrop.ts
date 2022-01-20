@@ -32,7 +32,10 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 	default: {
 		switch (interaction.options.getSubcommand()) {
 		case 'deploy': {
-			const collection = bot.db.collection('guild');
+			const connection = await bot.mongo.connect();
+			const db = connection.db('db');
+
+			const collection = db.collection('guild');
 			const guildData = await collection.findOne({ guild: interaction.guild.id });
 
 			const categoryRoles = [{
@@ -57,9 +60,10 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 					}],
 				}],
 			});
+			connection.close();
+			break;
 		}
 		}
-		break;
 	}
 	}
 }
