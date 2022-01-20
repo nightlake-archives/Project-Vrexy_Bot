@@ -3,10 +3,9 @@ import i18next from 'i18next';
 
 export default class LocaleManager {
 	constructor() {
-		const namespaces = ['common', 'meta'];
 		i18next.init({
-			ns: namespaces,
-			defaultNS: 'common',
+			ns: ['common', 'meta'],
+			fallbackLng: 'en-US',
 			resources: {},
 		});
 
