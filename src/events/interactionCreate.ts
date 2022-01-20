@@ -6,8 +6,19 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 	if (!interaction.inCachedGuild()) return;
 
 	if (interaction.isApplicationCommand()) {
-		const command = bot.commands.get(interaction.commandName)
-			|| bot.commands.find(cmd => cmd.data.context?.name === interaction.commandName);
+		let command;
+
+		if (interaction.isCommand()) {
+			let commandName = interaction.commandName;
+
+			if (interaction.options.getSubcommandGroup(false)) commandName += `/${interaction.options.getSubcommandGroup()}`;
+			if (interaction.options.getSubcommand(false)) commandName += `/${interaction.options.getSubcommand()}`;
+
+			command = bot.commands.get(commandName);
+		}
+		else {
+			command = bot.commands.find(cmd => cmd.data.context?.name === interaction.commandName);
+		}
 
 		try {
 			await command?.run(bot, interaction);

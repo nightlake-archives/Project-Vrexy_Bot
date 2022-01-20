@@ -18,23 +18,24 @@ export default class CommandManager {
 					const [subName] = subCommand.split('.');
 					if (subName === 'index') return;
 
-					if (!commandFile.endsWith('.js')) {
-						const groupSubCommands = readdirSync(`${process.cwd()}/dist/commands/${commandFile}/${subName}`);
+					if (!subCommand.endsWith('.js')) {
+						const groupSubCommands = readdirSync(`${process.cwd()}/dist/commands/${commandFile}/${subCommand}`);
 
 						groupSubCommands.forEach(async groupSubCommand => {
 							const [groupSubName] = groupSubCommand.split('.');
-							if (subName === 'index') return;
 
 							this.map.set(
 								`${commandFile}/${subName}/${groupSubName}`,
-								await import(`${process.cwd()}/dist/commands/${commandFile}/${subName}/${groupSubName}`)
+								await import(`${process.cwd()}/dist/commands/${commandFile}/${subName}/${groupSubCommand}`)
 							);
 						});
+
+						return;
 					}
 
 					this.map.set(
 						`${commandFile}/${subName}`,
-						await import(`${process.cwd()}/dist/commands/${commandFile}/${subName}`)
+						await import(`${process.cwd()}/dist/commands/${commandFile}/${subCommand}`)
 					);
 				});
 			}
