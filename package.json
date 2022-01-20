@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node .",
+	"compile": "tsc",
+    "start": "node .",
 	"build": "node ./dist/buildCommands.js"
   },
   "repository": {
