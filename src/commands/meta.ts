@@ -1,7 +1,10 @@
 import { VrexyClient } from '../classes/Client';
 import { CommandInteraction, version } from 'discord.js';
+import i18next from 'i18next';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { stripIndent } from 'common-tags';
+
+const botVersion = 'v2.0.0a5';
 
 export const data = {
 	slash: new SlashCommandBuilder()
@@ -19,30 +22,30 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 		interaction.reply({
 			embeds: [
 				{
-					title: `:information_source: ${bot.locale.get(interaction.locale, 'META_ABOUT_TITLE', { 'appName': 'Vrexy' })}`,
+					title: i18next.t('meta:about.title', { appName: 'Vrexy', lng: interaction.locale }),
 					color: bot.color,
-					description: bot.locale.get(interaction.locale, 'META_ABOUT_DESC', { 'appName': 'Vrexy' }),
+					description: i18next.t('meta:about.description', { appName: 'Vrexy', lng: interaction.locale }),
 					fields: [
 						{
-							name: `<:bot_dev:836605174696509471> ${bot.locale.get(interaction.locale, 'META_ABOUT_FIELDS_DEVELOPERS')}`,
+							name: i18next.t('meta:about.developers', { lng: interaction.locale }),
 							value: developers,
 							inline: true,
 						},
 						{
-							name: `:star: ${bot.locale.get(interaction.locale, 'META_ABOUT_FIELDS_SPECIALS')}`,
+							name: i18next.t('meta:about.specialThanks', { lng: interaction.locale }),
 							value: specials,
 							inline: true,
 						},
 						{
-							name: `:link: ${bot.locale.get(interaction.locale, 'META_ABOUT_FIELDS_LINKS')}`,
-							value: [
-								`:earth_americas: [${bot.locale.get(interaction.locale, 'META_ABOUT_LINKS_WEBSITE')}](https://vrexy.xyz)`,
-								`:bird: [${bot.locale.get(interaction.locale, 'META_ABOUT_LINKS_TWITTER')}](https://twitter.com/VrexyBot)`,
-							].join('\n'),
+							name: i18next.t('meta:about.links.title', { lng: interaction.locale }),
+							value: stripIndent`
+							${i18next.t('meta:about.links.website', { link: 'https://vrexy.xyz', lng: interaction.locale })}
+							${i18next.t('meta:about.links.twitter', { link: 'https://twitter.com/@VrexyBot', lng: interaction.locale })}
+							`,
 							inline: true,
 						},
 						{
-							name: `:desktop: ${bot.locale.get(interaction.locale, 'META_ABOUT_FIELDS_TECH')} `,
+							name: i18next.t('meta:about.tech', { lng: interaction.locale }),
 							value: stripIndent`
 							<:discordJS:931090194726260736> [discord.js](https://discord.js.org): ${version}
 							<:nodeJS:931090194512367667> [node.js](https://nodejs.org): ${process.version}
@@ -50,16 +53,20 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 							inline: true,
 						},
 						{
-							name: `:bar_chart: ${bot.locale.get(interaction.locale, 'META_ABOUT_FIELDS_STATS')}`,
+							name: i18next.t('meta:about.stats.title', { lng: interaction.locale }),
 							value: stripIndent`
-							:homes: ${bot.locale.get(interaction.locale, 'META_ABOUT_STATS_SERVERS', { 'guildCount': bot.guilds.cache.size })}
-							:family: ${bot.locale.get(interaction.locale, 'META_ABOUT_STATS_USERS', { 'userCount': bot.users.cache.size })}
+							${i18next.t('meta:about.stats.servers', { guildCount: bot.guilds.cache.size, lng: interaction.locale })}
+							${i18next.t('meta:about.stats.users', { userCount: bot.users.cache.size, lng: interaction.locale })}
 							`,
 							inline: true,
 						},
 					],
 					footer: {
-						text: bot.locale.get(interaction.locale, 'META_ABOUT_VERSION', { 'version': 'PreMongoIntegrate' }),
+						text: `Vrexy ${botVersion}`,
+						iconURL: 'https://cdn.discordapp.com/attachments/713675042143076356/933037231118110740/unknown.png',
+					},
+					thumbnail: {
+						url: 'https://cdn.discordapp.com/attachments/713675042143076356/933037231118110740/unknown.png',
 					},
 				},
 			],

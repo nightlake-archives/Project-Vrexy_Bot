@@ -1,28 +1,22 @@
 import { readdirSync } from 'fs';
-import { Locales, LocaleStrings, LocaleType } from 'src/types/Locale.type';
+import i18next from 'i18next';
 
 export default class LocaleManager {
-	locales: Record<keyof Locales, LocaleType>;
-
 	constructor() {
-		this.locales = {} as Record<keyof Locales, LocaleType>;
-
-		const localeFiles = readdirSync(`${process.cwd()}/i18n`).filter((file: string) => file.endsWith('.json'));
-		localeFiles.forEach(async localeFile => {
-			const name = localeFile.split('.')[0];
-
-			this.locales[name as keyof Locales] = await import(`${process.cwd()}/i18n/${localeFile}`);
+		i18next.init({
+			ns: ['common', 'meta'],
+			fallbackLng: 'en-US',
+			resources: {},
 		});
-	}
 
-	get(locale: string, localeString: LocaleStrings, variables: Record<string, unknown> = {}): LocaleType[LocaleStrings] {
-		const loc = this.locales[locale as keyof Locales] ?? this.locales['en-US' as keyof Locales];
-		let translatedString = loc[localeString];
+		const localeFiles = readdirSync(`${process.cwd()}/i18n`).filter((file: string) => !file.startsWith('.'));
+		localeFiles.forEach(async localeFile => {
+			const namespaceFiles = readdirSync(`${process.cwd()}/i18n/${localeFile}`).filter((file: string) => file.endsWith('.json'));
 
-		for (const [key, value] of Object.entries(variables)) {
-			translatedString = translatedString.replaceAll(`{${key}}`, value.toString());
-		}
-
-		return translatedString;
+			namespaceFiles.forEach(async namespaceFile => {
+				const data = await import(`${process.cwd()}/i18n/${localeFile}/${namespaceFile}`);
+				i18next.addResourceBundle(localeFile, namespaceFile.split('.')[0], data);
+			});
+		});
 	}
 }
