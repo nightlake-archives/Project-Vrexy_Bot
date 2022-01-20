@@ -5,11 +5,11 @@ import { SlashCommandBuilder, ContextMenuCommandBuilder } from '@discordjs/build
 interface CommandData {
 	slash?: SlashCommandBuilder;
 	context?: ContextMenuCommandBuilder;
+	isDev?: boolean;
 }
 
 export interface Command {
 	data: CommandData;
 	run: (bot: VrexyClient, interaction: BaseCommandInteraction) => void;
 	autocomplete: (bot: VrexyClient, interaction: AutocompleteInteraction) => void;
-	custom?: Record<string, unknown>;
 }

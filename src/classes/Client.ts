@@ -3,11 +3,9 @@ import { MongoClient } from 'mongodb';
 
 import { Command } from 'src/types/Command.type';
 import { Component } from 'src/types/Component.type';
-import { DevUtil } from 'src/types/devCommand.type';
 
 import CommandManager from './managers/CommandManager';
 import ComponentManager from './managers/ComponentManager';
-import DevUtilManager from './managers/DevUtilManager';
 import EventManager from './managers/EventManager';
 import LocaleManager from './managers/LocaleManager';
 
@@ -15,7 +13,6 @@ export class VrexyClient extends Client {
 	// managers and collections
 	commands: Collection<string, Command>;
 	components: Collection<string, Component>;
-	devUtils: Collection<string, DevUtil>;
 	// mongo connection
 	mongo: MongoClient;
 	// bot info
@@ -41,7 +38,6 @@ export class VrexyClient extends Client {
 		new EventManager(this);
 		this.commands = new CommandManager().load();
 		this.components = new ComponentManager().load();
-		this.devUtils = new DevUtilManager().load();
 		this.login(this.token);
 
 		process.on('unhandledRejection', error => {
