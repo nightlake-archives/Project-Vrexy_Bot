@@ -14,7 +14,10 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 		}
 		catch (error) {
 			console.error(error);
-			return interaction.reply(i18next.t('common:error.command', { errorID: interaction.id, lng: interaction.locale })).catch(() => null);
+			return interaction.reply({
+				content: i18next.t('common:error.command', { errorID: interaction.id, lng: interaction.locale }),
+				ephemeral: true
+			}).catch(() => null);
 		}
 	}
 	else if (interaction.isMessageComponent()) {
@@ -33,7 +36,10 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 		}
 		catch (error) {
 			console.error(error);
-			return interaction.reply(i18next.t('common:errors.component', { errorID: interaction.id, lng: interaction.locale })).catch(() => null);
+			return interaction.reply({
+				content: i18next.t('common:error.component', { errorID: interaction.id, lng: interaction.locale }),
+				ephemeral: true
+			}).catch(() => null);
 		}
 	}
 }
