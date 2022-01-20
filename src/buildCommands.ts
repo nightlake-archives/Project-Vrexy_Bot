@@ -11,10 +11,10 @@ const devCommands: APIApplicationCommand[] = [];
 commandFiles.forEach(async file => {
 	let command;
 	if (!file.endsWith('.js')) {
-		command = await import(`./dist/commands/${file}/index.js`);
+		command = await import(`./commands/${file}/index.js`);
 	}
 	else {
-		command = await import(`./dist/commands/${file.split('.')[0]}`);
+		command = await import(`./commands/${file.split('.')[0]}`);
 	}
 
 	if (command.data.isDev) {
