@@ -55,7 +55,7 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction) {
 						{
 							name: i18next.t('meta:about.stats.title', { lng: interaction.locale }),
 							value: stripIndent`
-							${i18next.t('meta:about.stats.servers', { guildCountCount: bot.guilds.cache.size, lng: interaction.locale })}
+							${i18next.t('meta:about.stats.servers', { guildCount: bot.guilds.cache.size, lng: interaction.locale })}
 							${i18next.t('meta:about.stats.users', { userCount: bot.users.cache.size, lng: interaction.locale })}
 							`,
 							inline: true,
