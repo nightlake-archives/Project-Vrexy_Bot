@@ -1,4 +1,5 @@
 import { Interaction, Message } from 'discord.js';
+import { bold, green } from 'picocolors';
 import i18next from 'i18next';
 import { VrexyClient } from '../classes/Client';
 
@@ -24,7 +25,7 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 			await command?.run(bot, interaction);
 		}
 		catch (error) {
-			console.error(error);
+			bot.logger.log(`${bold(green(interaction.id))} ${error}`);
 			return interaction.reply({
 				content: i18next.t('common:error.command', { errorID: interaction.id, lng: interaction.locale }),
 				ephemeral: true,
@@ -46,7 +47,7 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 			await component?.run(bot, interaction, data);
 		}
 		catch (error) {
-			console.error(error);
+			bot.logger.log(`${bold(green(interaction.id))} ${error}`);
 			return interaction.reply({
 				content: i18next.t('common:error.component', { errorID: interaction.id, lng: interaction.locale }),
 				ephemeral: true,

@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-	"compile": "tsc",
+    "compile": "tsc",
     "start": "node .",
-	"build": "node ./dist/buildCommands.js"
+    "build": "node ./dist/buildCommands.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "dotenv": "^10.0.0",
     "i18next": "^21.6.6",
     "mongodb": "^4.2.2",
+    "picocolors": "^1.0.0",
     "util": "^0.12.4"
   }
 }

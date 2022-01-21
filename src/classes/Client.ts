@@ -3,6 +3,7 @@ import { MongoClient } from 'mongodb';
 
 import { Command } from 'src/types/Command';
 import { Component } from 'src/types/Component';
+import Logger from './Logger';
 
 import CommandManager from './managers/CommandManager';
 import ComponentManager from './managers/ComponentManager';
@@ -13,6 +14,7 @@ export class VrexyClient extends Client {
 	// managers and collections
 	commands: Collection<string, Command>;
 	components: Collection<string, Component>;
+	logger: Logger;
 	// mongo connection
 	mongo: MongoClient;
 	// bot info
@@ -29,8 +31,6 @@ export class VrexyClient extends Client {
 
 		this.color = 0xE67E22;
 		this.devs = ['348591272476540928', '478823932913516544'];
-
-		this.mongo = new MongoClient('mongodb://localhost:27017');
 	}
 
 	init() {
@@ -38,10 +38,12 @@ export class VrexyClient extends Client {
 		new EventManager(this);
 		this.commands = new CommandManager().load();
 		this.components = new ComponentManager().load();
+		this.mongo = new MongoClient('mongodb://localhost:27017');
+		this.logger = new Logger();
 		this.login(this.token);
 
-		process.on('unhandledRejection', error => {
-			console.error(error);
+		process.on('unhandledRejection', (error: Error) => {
+			this.logger.error(error.stack);
 		});
 	}
 }
