@@ -7,7 +7,7 @@ export default class EventManager {
 
 	constructor(bot: VrexyClient) {
 		const eventDir = readdirSync(`${process.cwd()}/dist/events`);
-		bot.logger.log(`${bold(green('EVENTS:'))} ${eventDir.join(', ')}`);
+		bot.logger.log(`${bold(green('events:'))} ${eventDir.join(', ')}`);
 
 		eventDir.forEach(async eventFile => {
 			const eventName = eventFile.split('.')[0];
