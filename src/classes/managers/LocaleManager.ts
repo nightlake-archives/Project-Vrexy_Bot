@@ -16,7 +16,7 @@ export default class LocaleManager {
 		const localeFiles = readdirSync(`${process.cwd()}/i18n`).filter((file: string) => !file.startsWith('.'));
 		localeFiles.forEach(async localeFile => {
 			const namespaceFiles = readdirSync(`${process.cwd()}/i18n/${localeFile}`).filter((file: string) => file.endsWith('.json'));
-			logger.log(`${bold(green(localeFile))}: ${namespaceFiles}`);
+			logger.log(`${bold(green(localeFile))}: ${namespaceFiles.join(', ')}`);
 
 			namespaceFiles.forEach(async namespaceFile => {
 				const data = await import(`${process.cwd()}/i18n/${localeFile}/${namespaceFile}`);
