@@ -11,7 +11,7 @@ const devCommands: APIApplicationCommand[] = [];
 commandFiles.forEach(async file => {
 	let command;
 	if (!file.endsWith('.js')) {
-		command = await import(`./commands/${file}/index.js`);
+		command = await import(`./commands/${file}/index`);
 	}
 	else {
 		command = await import(`./commands/${file.split('.')[0]}`);
