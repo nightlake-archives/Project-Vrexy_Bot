@@ -1,15 +1,20 @@
 import { REST } from '@discordjs/rest';
-import { Routes, APIApplicationCommand } from 'discord-api-types/v9';
+import { Routes, RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
 import { readdirSync } from 'fs';
+import { Command } from './types/Command';
+
+import Logger from './classes/Logger';
+import { bold, green } from 'picocolors';
 import { config } from 'dotenv';
 config();
+const logger = new Logger();
 
 const commandFiles = readdirSync('./dist/commands');
-const releaseCommands: APIApplicationCommand[] = [];
-const devCommands: APIApplicationCommand[] = [];
+const releaseCommands: RESTPostAPIApplicationCommandsJSONBody[] = [];
+const devCommands: RESTPostAPIApplicationCommandsJSONBody[] = [];
 
 commandFiles.forEach(async file => {
-	let command;
+	let command: Command;
 	if (!file.endsWith('.js')) {
 		command = await import(`./commands/${file}/index`);
 	}
@@ -33,10 +38,10 @@ const guilds = ['713675042143076352'];
 
 guilds.forEach(guild => {
 	rest.put(Routes.applicationGuildCommands(process.env.CLIENTID, guild), { body: devCommands })
-		.then(() => console.log(`Successfully registered application commands for guild ${guild}.`))
+		.then(() => logger.log(`${bold(green('builder:'))} Registered for ${guild}`))
 		.catch(console.error);
 });
 
 rest.put(Routes.applicationCommands(process.env.CLIENTID), { body: releaseCommands })
-	.then(() => console.log('Successfully registered application commands.'))
+	.then(() => logger.log(`${bold(green('builder:'))} Registered for application`))
 	.catch(console.error);
