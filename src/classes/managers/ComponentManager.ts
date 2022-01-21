@@ -1,6 +1,6 @@
 import { Collection } from 'discord.js';
 import { readdirSync } from 'fs';
-import { Component } from 'src/types/Component.type';
+import { Component } from 'src/types/Component';
 
 export default class ComponentManager {
 	map: Collection<string, Component>;

@@ -1,8 +1,8 @@
 import { Client, Intents, Collection } from 'discord.js';
 import { MongoClient } from 'mongodb';
 
-import { Command } from 'src/types/Command.type';
-import { Component } from 'src/types/Component.type';
+import { Command } from 'src/types/Command';
+import { Component } from 'src/types/Component';
 
 import CommandManager from './managers/CommandManager';
 import ComponentManager from './managers/ComponentManager';

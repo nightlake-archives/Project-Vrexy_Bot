@@ -1,6 +1,6 @@
 import { Collection } from 'discord.js';
 import { readdirSync } from 'fs';
-import { Command } from 'src/types/Command.type';
+import { Command } from 'src/types/Command';
 
 export default class CommandManager {
 	map: Collection<string, Command>;
