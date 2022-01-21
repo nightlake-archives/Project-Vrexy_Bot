@@ -34,12 +34,12 @@ export class VrexyClient extends Client {
 	}
 
 	init() {
+		this.logger = new Logger();
 		new LocaleManager();
 		new EventManager(this);
 		this.commands = new CommandManager().load();
 		this.components = new ComponentManager().load();
 		this.mongo = new MongoClient('mongodb://localhost:27017');
-		this.logger = new Logger();
 		this.login(this.token);
 
 		process.on('unhandledRejection', (error: Error) => {
