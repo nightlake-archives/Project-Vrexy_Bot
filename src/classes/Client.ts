@@ -26,6 +26,12 @@ export class VrexyClient extends Client {
 			intents: [Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES],
 			partials: ['MESSAGE', 'CHANNEL', 'GUILD_MEMBER', 'USER'],
 			allowedMentions: { parse: ['users'], repliedUser: false },
+			presence: {
+				status: 'idle',
+				activities: [
+					{ name: 'type / to get started! https://vrexy.xyz', url: 'https://www.youtube.com/watch?v=PfwGTMV265E', type: 'STREAMING' },
+				],
+			},
 		});
 		this.token = token;
 
