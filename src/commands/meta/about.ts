@@ -5,7 +5,7 @@ import { VrexyClient } from 'src/classes/Client';
 
 const botVersion = 'v2.0.0a5';
 
-export async function run(bot: VrexyClient, interaction: CommandInteraction) {
+export async function run(bot: VrexyClient, interaction: CommandInteraction): Promise<void> {
 	const developers = (await Promise.all(bot.devs.map(async id => (await bot.users.fetch(id)).tag))).join('\n');
 	const specials = (await Promise.all(['707675871355600967', '478823932913516544'].map(async id => (await bot.users.fetch(id)).tag))).join('\n');
 

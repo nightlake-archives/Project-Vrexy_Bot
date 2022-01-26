@@ -13,7 +13,7 @@ export default class CommandManager {
 		this.logger = new Logger();
 	}
 
-	load() {
+	load(): Collection<string, Command> {
 		const commandDir = readdirSync(`${process.cwd()}/dist/commands`);
 		this.logger.log(`${bold(green('commands:'))} ${commandDir.join(', ')}`);
 

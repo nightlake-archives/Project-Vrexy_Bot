@@ -13,7 +13,7 @@ export default class ComponentManager {
 		this.logger = new Logger();
 	}
 
-	load() {
+	load(): Collection<string, Component> {
 		const commandDir = readdirSync(`${process.cwd()}/dist/components`);
 		this.logger.log(`${bold(green('components:'))} ${commandDir.join(', ')}`);
 		commandDir.forEach(async componentFile => {

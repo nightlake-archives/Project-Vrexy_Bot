@@ -39,7 +39,7 @@ export class VrexyClient extends Client {
 		this.devs = ['348591272476540928', '478823932913516544'];
 	}
 
-	init() {
+	init(): void {
 		this.logger = new Logger();
 		new LocaleManager();
 		new EventManager(this);

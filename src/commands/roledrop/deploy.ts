@@ -1,7 +1,7 @@
 import { VrexyClient } from '../../classes/Client';
 import { CommandInteraction } from 'discord.js';
 
-export async function run(bot: VrexyClient, interaction: CommandInteraction) {
+export async function run(bot: VrexyClient, interaction: CommandInteraction): Promise<void> {
 	const connection = await bot.mongo.connect();
 	const db = connection.db('db');
 
