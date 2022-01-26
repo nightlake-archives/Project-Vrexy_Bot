@@ -37,6 +37,7 @@ export async function run(bot: VrexyClient, interaction: CommandInteraction): Pr
 		interaction.reply({ embeds: [{
 			title: '<:app_error:894254521025445979> Failed',
 			description: `\`\`\`js\n${error}\`\`\``,
+			color: bot.color,
 		}] });
 	}
 }
