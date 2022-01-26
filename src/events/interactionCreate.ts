@@ -18,10 +18,17 @@ export async function execute(bot: VrexyClient, interaction: Interaction): Promi
 			command = bot.commands.get(commandName);
 		}
 		else {
-			command = bot.commands.find(cmd => cmd.data.context?.name === interaction.commandName);
+			command = bot.commands.find(cmd => cmd.data?.name === interaction.commandName);
 		}
 
 		try {
+			if (command.dev && !bot.devs.includes(interaction.user.id)) {
+				return interaction.reply({
+					content: '<:app_error:894254521025445979> You need to be a developer to do that!',
+					ephemeral: true,
+				});
+			}
+
 			await command?.run(bot, interaction);
 		}
 		catch (error) {

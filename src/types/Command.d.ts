@@ -2,14 +2,9 @@ import { AutocompleteInteraction, BaseCommandInteraction } from 'discord.js';
 import { VrexyClient } from 'src/classes/Client';
 import { SlashCommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
 
-interface CommandData {
-	slash?: SlashCommandBuilder;
-	context?: ContextMenuCommandBuilder;
-	isDev?: boolean;
-}
-
 export interface Command {
-	data: CommandData;
+	data?: SlashCommandBuilder | ContextMenuCommandBuilder;
+	dev?: boolean;
 	run: (bot: VrexyClient, interaction: BaseCommandInteraction) => void;
 	autocomplete: (bot: VrexyClient, interaction: AutocompleteInteraction) => void;
 }
