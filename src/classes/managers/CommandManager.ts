@@ -7,49 +7,56 @@ import { bold, green } from 'picocolors';
 export default class CommandManager {
 	map: Collection<string, Command>;
 	logger: Logger;
+	base: string;
 
 	constructor() {
 		this.map = new Collection();
 		this.logger = new Logger();
+		this.base = `${process.cwd()}/dist/commands`;
+	}
+
+	async loadSubCommand(commandFile: string, subCommand: string): Promise<void> {
+		const [subcommandName] = subCommand.split('.');
+		if (subcommandName === 'index') return;
+
+		// subcommand groups
+		if (!subCommand.endsWith('.js')) {
+			const groupSubCommands = readdirSync(`${this.base}/${commandFile}/${subCommand}`);
+			this.logger.log(`${bold(green(`commands/${commandFile}/${subCommand}:`))} ${groupSubCommands.join(', ')}`);
+
+			groupSubCommands.forEach(async groupSubCommand => {
+				const [groupSubcommandName] = groupSubCommand.split('.');
+
+				this.map.set(
+					`${commandFile}/${subcommandName}/${groupSubcommandName}`,
+					await import(`${this.base}/${commandFile}/${subcommandName}/${groupSubCommand}`)
+				);
+			});
+		}
+		else {
+			this.map.set(
+				`${commandFile}/${subcommandName}`,
+				await import(`${this.base}/${subCommand}`)
+			);
+		}
 	}
 
 	load(): Collection<string, Command> {
-		const commandDir = readdirSync(`${process.cwd()}/dist/commands`);
+		const commandDir = readdirSync(this.base);
 		this.logger.log(`${bold(green('commands:'))} ${commandDir.join(', ')}`);
 
 		commandDir.forEach(async commandFile => {
+			// sub commands
 			if (!commandFile.endsWith('.js')) {
-				const subCommands = readdirSync(`${process.cwd()}/dist/commands/${commandFile}/`);
+				const subCommands = readdirSync(`${this.base}/${commandFile}/`);
 				this.logger.log(`${bold(green(`commands/${commandFile}:`))} ${subCommands.join(', ')}`);
 
-				subCommands.forEach(async subCommand => {
-					const [subName] = subCommand.split('.');
-					if (subName === 'index') return;
-
-					if (!subCommand.endsWith('.js')) {
-						const groupSubCommands = readdirSync(`${process.cwd()}/dist/commands/${commandFile}/${subCommand}`);
-						this.logger.log(`${bold(green(`commands/${commandFile}/${subCommand}:`))} ${groupSubCommands.join(', ')}`);
-
-						groupSubCommands.forEach(async groupSubCommand => {
-							const [groupSubName] = groupSubCommand.split('.');
-
-							this.map.set(
-								`${commandFile}/${subName}/${groupSubName}`,
-								await import(`${process.cwd()}/dist/commands/${commandFile}/${subName}/${groupSubCommand}`)
-							);
-						});
-
-						return;
-					}
-
-					this.map.set(
-						`${commandFile}/${subName}`,
-						await import(`${process.cwd()}/dist/commands/${commandFile}/${subCommand}`)
-					);
-				});
+				subCommands.forEach(subCommand => this.loadSubCommand(commandFile, subCommand));
 			}
-			const [commandName] = commandFile.split('.');
-			this.map.set(commandName, await import(`${process.cwd()}/dist/commands/${commandFile}`));
+			else {
+				const [commandName] = commandFile.split('.');
+				this.map.set(commandName, await import(`${this.base}/${commandFile}`));
+			}
 		});
 		return this.map;
 	}
